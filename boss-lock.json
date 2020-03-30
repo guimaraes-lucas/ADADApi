@@ -26,6 +26,37 @@
 			"failed": false,
 			"changed": false
 		},
+		"github.com/hashload/ragna": {
+			"name": "ragna",
+			"version": "3.0.1",
+			"hash": "fc9fc98560b042c9dab30fc7b7755a43",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/hunsche/datasetconverter4delphi": {
+			"name": "DataSetConverter4Delphi",
+			"version": "2.0.1",
+			"hash": "54cb41a6cd077a485f5f2e09be214750",
+			"artifacts": {
+				"dcp": [
+					"DataSetConverter4Delphi.bpi",
+					"DataSetConverter4Delphi.dcp",
+					"DataSetConverter4Delphi.lib"
+				],
+				"dcu": [
+					"DataSetConverter4D.Impl.dcu",
+					"DataSetConverter4D.Intf.dcu",
+					"DataSetConverter4D.Util.dcu",
+					"DataSetConverter4D.dcu"
+				],
+				"bpl": [
+					"DataSetConverter4Delphi.bpl"
+				]
+			},
+			"failed": false,
+			"changed": false
+		},
 		"github.com/viniciussanchez/dataset-serialize": {
 			"name": "dataset-serialize",
 			"version": "v2.0.1",

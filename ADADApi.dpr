@@ -1,4 +1,4 @@
-program ADADServer;
+program ADADApi;
 
 {$APPTYPE CONSOLE}
 {$R *.res}
@@ -10,10 +10,10 @@ uses
   System.SysUtils,
   System.JSON,
   FireDAC.Comp.Client,
-  Events.Dao in 'src\events\Events.Dao.pas',
-  Global.Connection in 'src\connection\Global.Connection.pas',
-  Env.Config in 'src\config\Env.Config.pas',
-  Events.Routes in 'src\events\Events.Routes.pas';
+  Configs.Env in 'src\configs\Configs.Env.pas',
+  Controllers.Events in 'src\controllers\Controllers.Events.pas',
+  Providers.Connection in 'src\providers\Providers.Connection.pas',
+  Services.Events in 'src\services\Services.Events.pas';
 
 var
   App: THorse;
@@ -24,7 +24,7 @@ begin
     App.Use(Jhonson);
     App.Use(HandleException);
 
-    App.Get('events', GetEvents);
+    Events(App);
 
     App.Start;
   finally

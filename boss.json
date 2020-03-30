@@ -9,6 +9,7 @@
 		"github.com/hashload/handle-exception": "^0.1.2",
 		"github.com/hashload/horse": "^1.7.1",
 		"github.com/hashload/jhonson": "^1.0.3",
+		"github.com/hashload/ragna": "^3.0.1",
 		"github.com/viniciussanchez/dataset-serialize": "^v2.0.1"
 	}
 }
