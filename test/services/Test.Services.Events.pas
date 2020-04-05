@@ -59,13 +59,13 @@ begin
 end;
 
 procedure TestTServiceEvents.TestGetEvent;
+const
+  ID = 1;
 var
   ReturnValue: TFDQuery;
-  nId: Integer;
 begin
-  nId := 1;
-  Write('Test get event ' + nId.ToString.QuotedString);
-  ReturnValue := FServiceEvents.Get(nId);
+  Write('Test get event ' + ID.ToString.QuotedString);
+  ReturnValue := FServiceEvents.Get(ID);
   Check(not ReturnValue.IsEmpty);
   Writeln(' - OK');
 end;
