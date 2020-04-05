@@ -1,0 +1,11 @@
+{
+	"name": "Test",
+	"description": "",
+	"version": "1.0.0",
+	"homepage": "",
+	"mainsrc": "./",
+	"projects": [],
+	"dependencies": {
+		"github.com/hashload/ragna": "^3.0.1"
+	}
+}

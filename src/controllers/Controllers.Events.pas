@@ -20,9 +20,7 @@ begin
   Events := TServiceEvents.Create;
   try
     nId := Req.Params['id'].ToInteger;
-
     Events.Post(nId, Req.Body<TJSONObject>).ToJson(JSON);
-
     Res.Send(JSON);
   finally
     Events.Free;
@@ -38,9 +36,7 @@ begin
   Events := TServiceEvents.Create;
   try
     nId := Req.Params['id'].ToInteger;
-
     Events.Get(nId).ToJson(JSON);
-
     Res.Send(JSON);
   finally
     Events.Free;
@@ -55,10 +51,8 @@ var
 begin
   Events := TServiceEvents.Create;
   try
-    sFilter := 'date > date(''now'')';
-
+    sFilter := 'date > date(' + 'now'.QuotedString + ')';
     Events.Get(sFilter).ToJson(JSON);
-
     Res.Send(JSON);
   finally
     Events.Free;

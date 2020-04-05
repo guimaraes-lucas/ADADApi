@@ -22,11 +22,10 @@ type
 implementation
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
+{ TConnection }
 
 uses
   System.SysUtils, Vcl.Forms, System.Win.Registry, Winapi.Windows;
-
-{ TConnection }
 
 constructor TProviderConnection.Create;
 var
