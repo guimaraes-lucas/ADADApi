@@ -1,0 +1,12 @@
+ports:
+  - port: 3000
+    onOpen: open-preview
+tasks:
+  - init: >
+      gem install bundler -v '2.0.1' && 
+      bundle install --without production &&
+      rails db:migrate dev:setup
+    command: >
+      rails server
+image:
+  file: .gitpod.Dockerfile
