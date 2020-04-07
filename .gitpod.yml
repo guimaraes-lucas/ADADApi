@@ -10,3 +10,6 @@ tasks:
       rails server
 image:
   file: .gitpod.Dockerfile
+vscode:
+  extensions:
+    - misogi.ruby-rubocop@0.8.3:ptn+lTc9xnktGhPEYKIf2w==
