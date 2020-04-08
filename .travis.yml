@@ -12,7 +12,8 @@ before_script:
   - git config --global user.name "Travis CI"
 
 before_install:
-  - gem install bundler -v '2.0.1'
+  - gem update --system
+  - gem install bundler
 
 bundler_args: --without production
 
