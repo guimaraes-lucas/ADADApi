@@ -20,6 +20,9 @@ Layout/FirstArrayElementIndentation:
 Layout/HeredocIndentation:
   Enabled: false
 
+Layout/LineLength:
+  Max: 100
+
 Layout/MultilineMethodCallIndentation:
   Enabled: false
 
@@ -39,6 +42,12 @@ Lint/AmbiguousRegexpLiteral:
 Lint/AssignmentInCondition:
   Enabled: false
 
+Lint/RaiseException:
+  Enabled: false
+
+Lint/StructNewOverride:
+  Enabled: false
+
 Lint/Void:
   Enabled: false
 
@@ -47,9 +56,6 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Enabled: false
-
-Metrics/LineLength:
-  Max: 100
 
 Metrics/MethodLength:
   Max: 20
@@ -87,6 +93,15 @@ Style/FormatString:
 # There are a number of situations where this makes code less readable or
 # disrupts the visual flow of code.
 Style/GuardClause:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/HashTransformValues:
   Enabled: false
 
 Style/IfUnlessModifier:
