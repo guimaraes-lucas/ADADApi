@@ -52,8 +52,8 @@ before_test:
   - git config --global core.autocrlf true
   - git config --global core.safecrlf false
 
-#test_script:
-#  - bundle exec rspec --tty --backtrace --color
-#  - bundle exec overcommit --sign
-#  - bundle exec overcommit --sign pre-commit
-#  - bundle exec overcommit --run
+test_script:
+ - bundle exec rspec --tty --backtrace --color
+ - bundle exec overcommit --sign
+ - bundle exec overcommit --sign pre-commit
+ - bundle exec overcommit --run

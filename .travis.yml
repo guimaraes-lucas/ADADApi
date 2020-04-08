@@ -1,7 +1,24 @@
 language: ruby
+
 rvm:
   - 2.6.5
+
+cache: bundler
+
 install: bundler install
+
+before_script:
+  - git config --global user.email "travis@travis.ci"
+  - git config --global user.name "Travis CI"
+
 before_install:
-  - gem install bundler -v '2.0.1'
+  - gem update --system
+  - gem install bundler
+
 bundler_args: --without production
+
+script:
+  - bundle exec rspec
+  - bundle exec overcommit --sign
+  - bundle exec overcommit --sign pre-commit
+  - bundle exec overcommit --run
