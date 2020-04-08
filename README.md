@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.com/guimaraes-lucas/adad-api.svg?branch=master)](https://travis-ci.com/guimaraes-lucas/adad-api)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b04689da43995f4db68d/maintainability)](https://codeclimate.com/github/guimaraes-lucas/adad-api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b04689da43995f4db68d/test_coverage)](https://codeclimate.com/github/guimaraes-lucas/adad-api/test_coverage)
+[![Inline docs](http://inch-ci.org/github/guimaraes-lucas/adad-api.svg?branch=master)](http://inch-ci.org/github/guimaraes-lucas/adad-api)
 
 # O que é esse projeto?
 
