@@ -1,9 +1,6 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/guimaraes-lucas/adad-api) 
-
 [![Build Status](https://travis-ci.com/guimaraes-lucas/adad-api.svg?branch=master)](https://travis-ci.com/guimaraes-lucas/adad-api)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/b04689da43995f4db68d/maintainability)](https://codeclimate.com/github/guimaraes-lucas/adad-api/maintainability)
-
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b04689da43995f4db68d/test_coverage)](https://codeclimate.com/github/guimaraes-lucas/adad-api/test_coverage)
 
 # O que é esse projeto?
