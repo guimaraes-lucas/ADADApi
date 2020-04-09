@@ -11,7 +11,7 @@ PreCommit:
   ExecutePermissions:
     enabled: true
     exclude:
-      - 'bin/overcommit'
+      - 'bin/*'
       - 'libexec/**/*'
       - 'template-dir/hooks/**/*'
 

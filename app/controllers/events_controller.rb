@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# class controller allow interactions with entity events of transparent form
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show update destroy]
 

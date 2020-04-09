@@ -7,7 +7,7 @@ require 'rails/test_help'
 require 'coveralls'
 Coveralls.wear!
 
-# Description/Explanation of ActiveSuport class
+# class for add helper methods to be used by all tests
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)

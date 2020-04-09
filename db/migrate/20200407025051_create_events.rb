@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Class migration for create entity event
 class CreateEvents < ActiveRecord::Migration[6.0]
   def change
     create_table :events do |t|

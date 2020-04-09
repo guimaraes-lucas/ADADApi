@@ -22,6 +22,7 @@ require 'rails/test_unit/railtie'
 Bundler.require(*Rails.groups)
 
 module AdadApi
+  # Main class configure application
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
