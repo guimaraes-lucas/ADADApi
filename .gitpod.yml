@@ -5,8 +5,11 @@ ports:
     onOpen: open-preview
 tasks:
   - init: >
+      rvm install 2.6.5 &&
+      rvm use 2.6.5 --default &&
       gem install bundler -v '1.17.3' &&
       bundle install --without production &&
+      overcommit --install &&
       rails db:migrate dev:setup
     command: >
       rails s
