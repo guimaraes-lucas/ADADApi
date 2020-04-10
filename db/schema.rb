@@ -12,10 +12,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_407_025_051) do
+ActiveRecord::Schema.define(version: 20_200_410_152_952) do
   create_table 'events', force: :cascade do |t|
     t.string 'description'
     t.date 'date'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'responsibles', force: :cascade do |t|
+    t.string 'type'
+    t.string 'name'
+    t.string 'phone'
+    t.string 'email'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end
