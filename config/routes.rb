@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :grades
+  resources :disciplines
   resources :medical_records
   resources :congregational_histories
   resources :churches
