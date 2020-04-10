@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :churches
   resources :addresses
   resources :responsibles
   resources :events
