@@ -6,7 +6,7 @@ class CreateChurches < ActiveRecord::Migration[6.0]
     create_table :churches do |t|
       t.string :denomination
       t.string :congregation
-      t.Address :address
+      t.references :address, null: false, foreign_key: true
 
       t.timestamps
     end

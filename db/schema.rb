@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,20 +10,99 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_410_152_952) do
-  create_table 'events', force: :cascade do |t|
-    t.string 'description'
-    t.date 'date'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+ActiveRecord::Schema.define(version: 2020_04_10_164442) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "street"
+    t.string "number"
+    t.string "zip"
+    t.string "neighborhood"
+    t.string "city"
+    t.string "federatedUnit"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table 'responsibles', force: :cascade do |t|
-    t.string 'type'
-    t.string 'name'
-    t.string 'phone'
-    t.string 'email'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "churches", force: :cascade do |t|
+    t.string "denomination"
+    t.string "congregation"
+    t.integer "address_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["address_id"], name: "index_churches_on_address_id"
   end
+
+  create_table "classrooms", force: :cascade do |t|
+    t.string "description"
+    t.integer "teacher_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["teacher_id"], name: "index_classrooms_on_teacher_id"
+  end
+
+  create_table "congregational_histories", force: :cascade do |t|
+    t.integer "church_id", null: false
+    t.date "entry"
+    t.date "exit"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["church_id"], name: "index_congregational_histories_on_church_id"
+  end
+
+  create_table "disciplines", force: :cascade do |t|
+    t.string "description"
+    t.date "start"
+    t.date "end"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "description"
+    t.date "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.float "note"
+    t.integer "discipline_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["discipline_id"], name: "index_grades_on_discipline_id"
+  end
+
+  create_table "medical_records", force: :cascade do |t|
+    t.string "question"
+    t.boolean "owns"
+    t.string "answer"
+    t.string "problem"
+    t.string "medicine"
+    t.boolean "featured"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "responsibles", force: :cascade do |t|
+    t.string "type"
+    t.string "name"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.string "name"
+    t.date "birthDate"
+    t.string "rg"
+    t.string "cpf"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "churches", "addresses"
+  add_foreign_key "classrooms", "teachers"
+  add_foreign_key "congregational_histories", "churches"
+  add_foreign_key "grades", "disciplines"
 end

@@ -8,7 +8,6 @@ class CreateTeachers < ActiveRecord::Migration[6.0]
       t.date :birthDate
       t.string :rg
       t.string :cpf
-      t.Classroom :classes
 
       t.timestamps
     end

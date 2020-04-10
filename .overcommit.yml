@@ -30,6 +30,8 @@ PreCommit:
       - '**/*.rb'
       - '**/Gemfile'
       - template-dir/hooks/overcommit-hook
+    exclude:
+      - 'db/schema.rb'
 
   TrailingWhitespace:
     enabled: true

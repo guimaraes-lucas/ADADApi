@@ -50,6 +50,6 @@ class ChurchesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def church_params
-    params.require(:church).permit(:denomination, :congregation, :address)
+    params.require(:church).permit(:denomination, :congregation, :address_id)
   end
 end

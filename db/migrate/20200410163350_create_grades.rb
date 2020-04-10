@@ -5,7 +5,7 @@ class CreateGrades < ActiveRecord::Migration[6.0]
   def change
     create_table :grades do |t|
       t.float :note
-      t.Discipline :discipline
+      t.references :discipline, null: false, foreign_key: true
 
       t.timestamps
     end
