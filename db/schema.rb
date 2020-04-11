@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_411_165_509) do
+ActiveRecord::Schema.define(version: 20_200_411_180_914) do
   create_table 'addresses', force: :cascade do |t|
     t.string 'street'
     t.string 'number'
@@ -31,6 +31,16 @@ ActiveRecord::Schema.define(version: 20_200_411_165_509) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['responsible_id'], name: 'index_associates_on_responsible_id'
     t.index ['student_id'], name: 'index_associates_on_student_id'
+  end
+
+  create_table 'attendance_diaries', force: :cascade do |t|
+    t.integer 'student_id', null: false
+    t.integer 'lesson_id', null: false
+    t.boolean 'present'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['lesson_id'], name: 'index_attendance_diaries_on_lesson_id'
+    t.index ['student_id'], name: 'index_attendance_diaries_on_student_id'
   end
 
   create_table 'births', force: :cascade do |t|
@@ -98,6 +108,17 @@ ActiveRecord::Schema.define(version: 20_200_411_165_509) do
     t.index ['discipline_id'], name: 'index_grades_on_discipline_id'
   end
 
+  create_table 'lessons', force: :cascade do |t|
+    t.string 'description'
+    t.date 'date'
+    t.integer 'classroom_id', null: false
+    t.integer 'discipline_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['classroom_id'], name: 'index_lessons_on_classroom_id'
+    t.index ['discipline_id'], name: 'index_lessons_on_discipline_id'
+  end
+
   create_table 'medical_records', force: :cascade do |t|
     t.string 'question'
     t.boolean 'owns'
@@ -152,11 +173,15 @@ ActiveRecord::Schema.define(version: 20_200_411_165_509) do
 
   add_foreign_key 'associates', 'responsibles'
   add_foreign_key 'associates', 'students'
+  add_foreign_key 'attendance_diaries', 'lessons'
+  add_foreign_key 'attendance_diaries', 'students'
   add_foreign_key 'births', 'addresses'
   add_foreign_key 'churches', 'addresses'
   add_foreign_key 'classrooms', 'teachers'
   add_foreign_key 'congregational_histories', 'churches'
   add_foreign_key 'grades', 'disciplines'
+  add_foreign_key 'lessons', 'classrooms'
+  add_foreign_key 'lessons', 'disciplines'
   add_foreign_key 'students', 'addresses'
   add_foreign_key 'students', 'births'
   add_foreign_key 'students', 'classrooms'
