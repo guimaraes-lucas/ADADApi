@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_410_194_656) do
+ActiveRecord::Schema.define(version: 20_200_411_165_509) do
   create_table 'addresses', force: :cascade do |t|
     t.string 'street'
     t.string 'number'
@@ -22,6 +22,24 @@ ActiveRecord::Schema.define(version: 20_200_410_194_656) do
     t.string 'federatedUnit'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'associates', force: :cascade do |t|
+    t.integer 'student_id', null: false
+    t.integer 'responsible_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['responsible_id'], name: 'index_associates_on_responsible_id'
+    t.index ['student_id'], name: 'index_associates_on_student_id'
+  end
+
+  create_table 'births', force: :cascade do |t|
+    t.date 'date'
+    t.string 'certificate'
+    t.integer 'address_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['address_id'], name: 'index_births_on_address_id'
   end
 
   create_table 'churches', force: :cascade do |t|
@@ -54,6 +72,13 @@ ActiveRecord::Schema.define(version: 20_200_410_194_656) do
     t.string 'description'
     t.date 'start'
     t.date 'end'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'documents', force: :cascade do |t|
+    t.string 'description'
+    t.string 'registration'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end
@@ -95,16 +120,11 @@ ActiveRecord::Schema.define(version: 20_200_410_194_656) do
 
   create_table 'students', force: :cascade do |t|
     t.string 'name'
-    t.date 'birthDate'
+    t.integer 'birth_id', null: false
     t.boolean 'studying'
     t.string 'grade'
     t.string 'schooling'
     t.string 'bloodType'
-    t.string 'rg'
-    t.string 'cpf'
-    t.string 'birthCertificate'
-    t.string 'birthCity'
-    t.string 'birthFederateUnit'
     t.boolean 'baptizedInWater'
     t.boolean 'baptizedInholySpirit'
     t.boolean 'sundaySchoolStudent'
@@ -116,22 +136,30 @@ ActiveRecord::Schema.define(version: 20_200_410_194_656) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['address_id'], name: 'index_students_on_address_id'
+    t.index ['birth_id'], name: 'index_students_on_birth_id'
     t.index ['classroom_id'], name: 'index_students_on_classroom_id'
   end
 
   create_table 'teachers', force: :cascade do |t|
     t.string 'name'
-    t.date 'birthDate'
-    t.string 'rg'
-    t.string 'cpf'
+    t.integer 'birth_id', null: false
+    t.integer 'address_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index ['address_id'], name: 'index_teachers_on_address_id'
+    t.index ['birth_id'], name: 'index_teachers_on_birth_id'
   end
 
+  add_foreign_key 'associates', 'responsibles'
+  add_foreign_key 'associates', 'students'
+  add_foreign_key 'births', 'addresses'
   add_foreign_key 'churches', 'addresses'
   add_foreign_key 'classrooms', 'teachers'
   add_foreign_key 'congregational_histories', 'churches'
   add_foreign_key 'grades', 'disciplines'
   add_foreign_key 'students', 'addresses'
+  add_foreign_key 'students', 'births'
   add_foreign_key 'students', 'classrooms'
+  add_foreign_key 'teachers', 'addresses'
+  add_foreign_key 'teachers', 'births'
 end

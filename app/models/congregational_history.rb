@@ -2,5 +2,5 @@
 
 # class with relationships of CongregationalHistory
 class CongregationalHistory < ApplicationRecord
-  belongs_to :church, dependent: :destroy
+  belongs_to :church
 end
