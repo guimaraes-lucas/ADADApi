@@ -2,5 +2,5 @@
 
 # class with relationships of Grade
 class Grade < ApplicationRecord
-  belongs_to :discipline
+  belongs_to :discipline, dependent: :destroy
 end

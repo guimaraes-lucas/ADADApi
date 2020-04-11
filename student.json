@@ -1,0 +1,126 @@
+// rails g scaffold Student name:string birthDate:date studying:boolean grade:string schooling:string bloodType:string rg:string cpf:string birthCertificate
+// :string birthCity:string birthFederateUnit:string baptizedInWater:boolean baptizedInholySpirit:boolean sundaySchoolStudent:boolean developingActivityInTheChurch:boolean canSwim:boole
+// an comments:text classroom:references address:references
+{
+  "name": "So-and-so da Silva",
+  "birthDate": "01/01/1980",
+  "studying": true,
+  "grade": "1st grade",
+  "schooling": "2nd degree",
+  "Blood type": "AB +",
+  "rg": "1234567890",
+  "cpf": "000.999.888-77",
+  "birthCertificate": "1234987650",
+  "birthCity": "Barreiras",
+  "birthFederatedUnit": "BA",
+  "baptizedInWater": true,
+  "baptizedInholySpirit": true,
+  "sundaySchoolStudent": true,
+  "developingActivityInTheChurch": false,
+  "canSwim": false,
+  "comments": "...",
+  "classroom": 
+    {
+        "description": "ADAD 2"
+    },
+  "responsible": [ // add depois
+    {
+      "type": "Dad",
+      "name": "Beutrano de Tal",
+      "phone": "48999887766",
+      "email": "beutrano@bol.com.br"
+    },
+    {
+      "type": "Mother",
+      "name": "Fulana da Silva",
+      "phone": "48999887766",
+      "email": "fulana@gmail.com"
+    }
+  ],
+  "Address": {
+    "street": "Rua Cicrano da Flor",
+    "number": "1A",
+    "zip": "88000600",
+    "neighborhood": "waterfall",
+    "city": "Magic Island",
+    "federatedUnit": "SC"
+  },
+  "congregationalHistory": [
+    {
+      "church": {
+        "denomination": "Assembly of God",
+        "congregation": "Canasvieiras",
+        "Address": {
+          "street": "Servidão dos Santos",
+          "number": 1,
+          "zip": "88000600",
+          "neighborhood": "Cacheira",
+          "city": "Magic Island",
+          "uf": "SC"
+        }
+      },
+      "entry": "01/01/1980",
+      "exit": "01/01/2000"
+    },
+    {
+      "church": {
+        "denomination": "Assembly of God",
+        "congregation": "Canasvieiras",
+        "Address": {
+          "streetAddress": "Servidão dos Santos",
+          "number": 1,
+          "zip": "88000600",
+          "neighborhood": "Cacheira",
+          "city": "Magic Island",
+          "uf": "SC"
+        }
+      },
+      "entry": "1/1/2000",
+      "exit": null
+    }
+  ],
+  "medicalRecord": [ // add depois
+    {
+      "question": "Do you have an active disease? (ex: Bronchitis, asthma, diabetes)?",
+      "owns": true,
+      "answer": "Respiratory failure followed by wheezing.",
+      "problem": "Asthma",
+      "medicine": "Bombinha",
+      "featured": true
+    }
+  ],
+  "grades": [ // add depois
+    {
+      "note": 8.5,
+      "discipline": {
+        "description": "Bible 3",
+        "start": "02/01/2019",
+        "end": "12/30/2019"
+      }
+    },
+    {
+      "note": 8.5,
+      "discipline": {
+        "description": "ethics and etiquette",
+        "start": "2/1/2020",
+        "end": "12/30/2020"
+      }
+    }
+  ],
+  "teachers": [ // add depois
+    {
+      "name": "Beutrano de Tal",
+      "birthDate": "10/9/1995",
+      "rg": "1234567890",
+      "cpf": "000.999.888-77",
+      "classes": [
+        {
+          "description": "ADAD 2"
+        },
+        {
+          "description": "ADAD Senior"
+        }
+      ]
+    }
+  ]
+}
