@@ -23,7 +23,6 @@ docker run -it -p 3000:3000 --name adad-api adad-api
 
 | Helper                                                       | HTTP Verb | Path                              | Controller#Action          |
 | ------------------------------------------------------------ | --------- | --------------------------------- | -------------------------- |
-| [Path](https://3000-b27948f6-c221-4f9f-a009-83045d7ee4ca.ws-us02.gitpod.io/info/routes#) / [Url](https://3000-b27948f6-c221-4f9f-a009-83045d7ee4ca.ws-us02.gitpod.io/info/routes#) |           |                                   |                            |
 | attendance_diaries_path                                      | GET       | /attendance_diaries(.:format)     | attendance_diaries#index   |
 |                                                              | POST      | /attendance_diaries(.:format)     | attendance_diaries#create  |
 | attendance_diary_path                                        | GET       | /attendance_diaries/:id(.:format) | attendance_diaries#show    |
