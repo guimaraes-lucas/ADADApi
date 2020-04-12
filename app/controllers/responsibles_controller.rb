@@ -50,6 +50,6 @@ class ResponsiblesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def responsible_params
-    params.require(:responsible).permit(:type, :name, :phone, :email)
+    params.require(:responsible).permit(:relationship, :name, :phone, :email)
   end
 end

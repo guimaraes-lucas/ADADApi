@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_411_180_914) do
+ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   create_table 'addresses', force: :cascade do |t|
     t.string 'street'
     t.string 'number'
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20_200_411_180_914) do
   end
 
   create_table 'responsibles', force: :cascade do |t|
-    t.string 'type'
+    t.string 'relationship'
     t.string 'name'
     t.string 'phone'
     t.string 'email'
@@ -171,6 +171,24 @@ ActiveRecord::Schema.define(version: 20_200_411_180_914) do
     t.index ['birth_id'], name: 'index_teachers_on_birth_id'
   end
 
+  create_table 'wallet_students', force: :cascade do |t|
+    t.integer 'document_id', null: false
+    t.integer 'student_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['document_id'], name: 'index_wallet_students_on_document_id'
+    t.index ['student_id'], name: 'index_wallet_students_on_student_id'
+  end
+
+  create_table 'wallet_teachers', force: :cascade do |t|
+    t.integer 'document_id', null: false
+    t.integer 'teacher_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['document_id'], name: 'index_wallet_teachers_on_document_id'
+    t.index ['teacher_id'], name: 'index_wallet_teachers_on_teacher_id'
+  end
+
   add_foreign_key 'associates', 'responsibles'
   add_foreign_key 'associates', 'students'
   add_foreign_key 'attendance_diaries', 'lessons'
@@ -187,4 +205,8 @@ ActiveRecord::Schema.define(version: 20_200_411_180_914) do
   add_foreign_key 'students', 'classrooms'
   add_foreign_key 'teachers', 'addresses'
   add_foreign_key 'teachers', 'births'
+  add_foreign_key 'wallet_students', 'documents'
+  add_foreign_key 'wallet_students', 'students'
+  add_foreign_key 'wallet_teachers', 'documents'
+  add_foreign_key 'wallet_teachers', 'teachers'
 end

@@ -5,7 +5,8 @@ class Student < ApplicationRecord
   belongs_to :birth, dependent: :destroy
   belongs_to :classroom
   belongs_to :address, dependent: :destroy
-  has_many :documents, dependent: :destroy
+  has_many :wallet_students, dependent: :destroy
+  has_many :documents, through: :wallet_students
   has_many :associates, dependent: :destroy
   has_many :resposibles, through: :associates
   has_many :congrationalHistories, dependent: :destroy
