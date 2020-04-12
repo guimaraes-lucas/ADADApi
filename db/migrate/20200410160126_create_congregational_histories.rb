@@ -7,6 +7,7 @@ class CreateCongregationalHistories < ActiveRecord::Migration[6.0]
       t.references :church, null: false, foreign_key: true
       t.date :entry
       t.date :exit
+      t.references :student, null: false, foreign_key: true
 
       t.timestamps
     end

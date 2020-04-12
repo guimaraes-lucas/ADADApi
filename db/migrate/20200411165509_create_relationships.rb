@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-# class migration of creation the associate responsibles and students
-class CreateAssociates < ActiveRecord::Migration[6.0]
+# class migration of creation the relationship responsibles and students
+class CreateRelationships < ActiveRecord::Migration[6.0]
   def change
-    create_table :associates do |t|
+    create_table :relationships do |t|
       t.references :student, null: false, foreign_key: true
       t.references :responsible, null: false, foreign_key: true
 

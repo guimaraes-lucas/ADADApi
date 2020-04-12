@@ -1,5 +1,5 @@
-// rails g scaffold Student name:string birthDate:date studying:boolean grade:string schooling:string bloodType:string rg:string cpf:string birthCertificate
-// :string birthCity:string birthFederateUnit:string baptizedInWater:boolean baptizedInholySpirit:boolean sundaySchoolStudent:boolean developingActivityInTheChurch:boolean canSwim:boole
+// rails g scaffold Student name:string birthDate:date studying:boolean grade:string schooling:string blood_type:string rg:string cpf:string birthCertificate
+// :string birthCity:string birthFederateUnit:string baptized_in_water:boolean baptized_in_holy_spirit:boolean sunday_school_student:boolean developing_activity_in_the_church:boolean can_swim:boole
 // an comments:text classroom:references address:references
 {
   "name": "So-and-so da Silva",
@@ -13,11 +13,11 @@
   "birthCertificate": "1234987650",
   "birthCity": "Barreiras",
   "birthFederatedUnit": "BA",
-  "baptizedInWater": true,
-  "baptizedInholySpirit": true,
-  "sundaySchoolStudent": true,
-  "developingActivityInTheChurch": false,
-  "canSwim": false,
+  "baptized_in_water": true,
+  "baptized_in_holy_spirit": true,
+  "sunday_school_student": true,
+  "developing_activity_in_the_church": false,
+  "can_swim": false,
   "comments": "...",
   "classroom": 
     {

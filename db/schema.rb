@@ -20,17 +20,9 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
     t.string 'neighborhood'
     t.string 'city'
     t.string 'federatedUnit'
+    t.text 'complement'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-  end
-
-  create_table 'associates', force: :cascade do |t|
-    t.integer 'student_id', null: false
-    t.integer 'responsible_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['responsible_id'], name: 'index_associates_on_responsible_id'
-    t.index ['student_id'], name: 'index_associates_on_student_id'
   end
 
   create_table 'attendance_diaries', force: :cascade do |t|
@@ -73,9 +65,11 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
     t.integer 'church_id', null: false
     t.date 'entry'
     t.date 'exit'
+    t.integer 'student_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['church_id'], name: 'index_congregational_histories_on_church_id'
+    t.index ['student_id'], name: 'index_congregational_histories_on_student_id'
   end
 
   create_table 'disciplines', force: :cascade do |t|
@@ -103,9 +97,11 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   create_table 'grades', force: :cascade do |t|
     t.float 'note'
     t.integer 'discipline_id', null: false
+    t.integer 'student_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['discipline_id'], name: 'index_grades_on_discipline_id'
+    t.index ['student_id'], name: 'index_grades_on_student_id'
   end
 
   create_table 'lessons', force: :cascade do |t|
@@ -126,8 +122,19 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
     t.string 'problem'
     t.string 'medicine'
     t.boolean 'featured'
+    t.integer 'student_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index ['student_id'], name: 'index_medical_records_on_student_id'
+  end
+
+  create_table 'relationships', force: :cascade do |t|
+    t.integer 'student_id', null: false
+    t.integer 'responsible_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['responsible_id'], name: 'index_relationships_on_responsible_id'
+    t.index ['student_id'], name: 'index_relationships_on_student_id'
   end
 
   create_table 'responsibles', force: :cascade do |t|
@@ -145,12 +152,12 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
     t.boolean 'studying'
     t.string 'grade'
     t.string 'schooling'
-    t.string 'bloodType'
-    t.boolean 'baptizedInWater'
-    t.boolean 'baptizedInholySpirit'
-    t.boolean 'sundaySchoolStudent'
-    t.boolean 'developingActivityInTheChurch'
-    t.boolean 'canSwim'
+    t.string 'blood_type'
+    t.boolean 'baptized_in_water'
+    t.boolean 'baptized_in_holy_spirit'
+    t.boolean 'sunday_school_student'
+    t.boolean 'developing_activity_in_the_church'
+    t.boolean 'can_swim'
     t.text 'comments'
     t.integer 'classroom_id', null: false
     t.integer 'address_id', null: false
@@ -189,17 +196,20 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
     t.index ['teacher_id'], name: 'index_wallet_teachers_on_teacher_id'
   end
 
-  add_foreign_key 'associates', 'responsibles'
-  add_foreign_key 'associates', 'students'
   add_foreign_key 'attendance_diaries', 'lessons'
   add_foreign_key 'attendance_diaries', 'students'
   add_foreign_key 'births', 'addresses'
   add_foreign_key 'churches', 'addresses'
   add_foreign_key 'classrooms', 'teachers'
   add_foreign_key 'congregational_histories', 'churches'
+  add_foreign_key 'congregational_histories', 'students'
   add_foreign_key 'grades', 'disciplines'
+  add_foreign_key 'grades', 'students'
   add_foreign_key 'lessons', 'classrooms'
   add_foreign_key 'lessons', 'disciplines'
+  add_foreign_key 'medical_records', 'students'
+  add_foreign_key 'relationships', 'responsibles'
+  add_foreign_key 'relationships', 'students'
   add_foreign_key 'students', 'addresses'
   add_foreign_key 'students', 'births'
   add_foreign_key 'students', 'classrooms'

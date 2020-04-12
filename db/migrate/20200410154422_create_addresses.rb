@@ -10,6 +10,7 @@ class CreateAddresses < ActiveRecord::Migration[6.0]
       t.string :neighborhood
       t.string :city
       t.string :federatedUnit
+      t.text :complement
 
       t.timestamps
     end

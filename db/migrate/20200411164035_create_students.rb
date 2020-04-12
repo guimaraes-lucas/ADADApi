@@ -9,12 +9,12 @@ class CreateStudents < ActiveRecord::Migration[6.0]
       t.boolean :studying
       t.string :grade
       t.string :schooling
-      t.string :bloodType
-      t.boolean :baptizedInWater
-      t.boolean :baptizedInholySpirit
-      t.boolean :sundaySchoolStudent
-      t.boolean :developingActivityInTheChurch
-      t.boolean :canSwim
+      t.string :blood_type
+      t.boolean :baptized_in_water
+      t.boolean :baptized_in_holy_spirit
+      t.boolean :sunday_school_student
+      t.boolean :developing_activity_in_the_church
+      t.boolean :can_swim
       t.text :comments
       t.references :classroom, null: false, foreign_key: true
       t.references :address, null: false, foreign_key: true

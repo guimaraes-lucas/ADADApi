@@ -2,6 +2,6 @@
 
 # class with relationships of Responsible
 class Responsible < ApplicationRecord
-  has_many :associates, dependent: :destroy
-  has_many :students, through: :associates
+  has_many :relationships, dependent: :destroy
+  has_many :students, through: :relationships
 end

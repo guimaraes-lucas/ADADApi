@@ -13,7 +13,16 @@ class StudentsController < ApplicationController
 
   # GET /students/1
   def show
-    render json: @student
+    render json: @student,
+           include: [:birth,
+                     :classroom,
+                     :address,
+                     :documents,
+                     :responsibles,
+                     :congregational_histories,
+                     :medical_records,
+                     :grades,
+                     :teachers]
   end
 
   # POST /students
@@ -58,18 +67,18 @@ class StudentsController < ApplicationController
       :studying,
       :grade,
       :schooling,
-      :bloodType,
-      :baptizedInWater,
-      :baptizedInholySpirit,
-      :sundaySchoolStudent,
-      :developingActivityInTheChurch,
-      :canSwim,
+      :blood_type,
+      :baptized_in_water,
+      :baptized_in_holy_spirit,
+      :sunday_school_student,
+      :developing_activity_in_the_church,
+      :can_swim,
       :comments,
       :classroom_id,
       :address_id,
       :resposibles,
-      :congrationalHistories,
-      :medicalRecords,
+      :congregational_histories,
+      :medical_records,
       :grades,
       :teachers
 )

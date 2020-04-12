@@ -3,4 +3,5 @@
 # class with relationships of CongregationalHistory
 class CongregationalHistory < ApplicationRecord
   belongs_to :church
+  belongs_to :student
 end

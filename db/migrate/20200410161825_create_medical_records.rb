@@ -10,6 +10,7 @@ class CreateMedicalRecords < ActiveRecord::Migration[6.0]
       t.string :problem
       t.string :medicine
       t.boolean :featured
+      t.references :student, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -14,9 +14,9 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe '/associates', type: :request do
+RSpec.describe '/relationships', type: :request do
   # This should return the minimal set of attributes required to create a valid
-  # Associate. As you add validations to Associate, be sure to
+  # Relationship. As you add validations to relationship, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
     skip('Add a hash of attributes valid for your model')
@@ -28,7 +28,7 @@ RSpec.describe '/associates', type: :request do
 
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
-  # AssociatesController, or in your router and rack
+  # RelationshipsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
     {}
@@ -36,48 +36,48 @@ RSpec.describe '/associates', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      Associate.create! valid_attributes
-      get associates_url, headers: valid_headers, as: :json
+      Relationship.create! valid_attributes
+      get relationships_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      associate = Associate.create! valid_attributes
-      get associate_url(associate), as: :json
+      relationship = Relationship.create! valid_attributes
+      get relationship_url(relationship), as: :json
       expect(response).to be_successful
     end
   end
 
   describe 'POST /create' do
     context 'with valid parameters' do
-      it 'creates a new Associate' do
+      it 'creates a new relationship' do
         expect do
-          post associates_url,
-               params: { associate: valid_attributes }, headers: valid_headers, as: :json
-        end.to change(Associate, :count).by(1)
+          post relationships_url,
+               params: { relationship: valid_attributes }, headers: valid_headers, as: :json
+        end.to change(Relationship, :count).by(1)
       end
 
-      it 'renders a JSON response with the new associate' do
-        post associates_url,
-             params: { associate: valid_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with the new relationship' do
+        post relationships_url,
+             params: { relationship: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
 
     context 'with invalid parameters' do
-      it 'does not create a new Associate' do
+      it 'does not create a new relationship' do
         expect do
-          post associates_url,
-               params: { associate: invalid_attributes }, as: :json
-        end.to change(Associate, :count).by(0)
+          post relationships_url,
+               params: { relationship: invalid_attributes }, as: :json
+        end.to change(Relationship, :count).by(0)
       end
 
-      it 'renders a JSON response with errors for the new associate' do
-        post associates_url,
-             params: { associate: invalid_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with errors for the new relationship' do
+        post relationships_url,
+             params: { relationship: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -90,28 +90,28 @@ RSpec.describe '/associates', type: :request do
         skip('Add a hash of attributes valid for your model')
       end
 
-      it 'updates the requested associate' do
-        associate = Associate.create! valid_attributes
-        patch associate_url(associate),
-              params: { associate: invalid_attributes }, headers: valid_headers, as: :json
-        associate.reload
+      it 'updates the requested relationship' do
+        relationship = Relationship.create! valid_attributes
+        patch relationship_url(relationship),
+              params: { relationship: invalid_attributes }, headers: valid_headers, as: :json
+        relationship.reload
         skip('Add assertions for updated state')
       end
 
-      it 'renders a JSON response with the associate' do
-        associate = Associate.create! valid_attributes
-        patch associate_url(associate),
-              params: { associate: invalid_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with the relationship' do
+        relationship = Relationship.create! valid_attributes
+        patch relationship_url(relationship),
+              params: { relationship: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
     context 'with invalid parameters' do
-      it 'renders a JSON response with errors for the associate' do
-        associate = Associate.create! valid_attributes
-        patch associate_url(associate),
-              params: { associate: invalid_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with errors for the relationship' do
+        relationship = Relationship.create! valid_attributes
+        patch relationship_url(relationship),
+              params: { relationship: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -119,11 +119,11 @@ RSpec.describe '/associates', type: :request do
   end
 
   describe 'DELETE /destroy' do
-    it 'destroys the requested associate' do
-      associate = Associate.create! valid_attributes
+    it 'destroys the requested relationship' do
+      relationship = Relationship.create! valid_attributes
       expect do
-        delete associate_url(associate), headers: valid_headers, as: :json
-      end.to change(Associate, :count).by(-1)
+        delete relationship_url(relationship), headers: valid_headers, as: :json
+      end.to change(Relationship, :count).by(-1)
     end
   end
 end

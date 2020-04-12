@@ -50,6 +50,6 @@ class CongregationalHistoriesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def congregational_history_params
-    params.require(:congregational_history).permit(:church_id, :entry, :exit)
+    params.require(:congregational_history).permit(:church_id, :entry, :exit, :student)
   end
 end

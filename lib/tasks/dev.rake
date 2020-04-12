@@ -25,51 +25,13 @@ namespace :dev do
 
     #######################
 
-    puts 'Registering addresses...'
-    200.times do |_i|
-      Address.create(
-        street: Faker::Address.street_address,
-        number: Faker::Address.secondary_address,
-        zip: Faker::Address.zip,
-        neighborhood: Faker::Address.community,
-        city: Faker::Address.city,
-        federatedUnit: Faker::Address.state_abbr
-        )
-    end
-    puts 'Addresses successfully registered'
-
-    #######################
-
-    puts 'Registering births...'
-    200.times do |_i|
-      Birth.create(
-        date: Faker::Date.between(from: 65.years.ago, to: 8.years.ago),
-        certificate: Faker::DrivingLicence.northern_irish_driving_licence,
-        address: Address.all.sample
-        )
-    end
-    puts 'Births successfully registered'
-
-    #######################
-
-    puts 'Registering document...'
-    400.times do |_i|
-      Document.create!(
-        description: %w[RG CPF].sample,
-        registration: Faker::DrivingLicence.northern_irish_driving_licence
-      )
-    end
-    puts 'Document successfully registered'
-
-    #######################
-
     puts 'Registering teachers...'
     10.times do |_i|
       Teacher.create!(
         name: Faker::Superhero.name,
-        birth: Birth.all.sample,
-        address: Address.all.sample,
-        documents: Document.all.sample(rand(1..2))
+        birth: create_fake_birth,
+        address: create_fake_address,
+        documents: create_fake_documents
       )
     end
     puts 'Teachers successfully registered'
@@ -102,20 +64,20 @@ namespace :dev do
     200.times do |_i|
       Student.create!(
         name: Faker::Movies::StarWars.character,
-        birth: Birth.all.sample,
+        birth: create_fake_birth,
         studying: Faker::Boolean.boolean,
-        grade: "#{rand(1..9)} ano",
-        schooling: "#{rand(1..2)} grau",
-        bloodType: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].sample,
-        baptizedInWater: Faker::Boolean.boolean,
-        baptizedInholySpirit: Faker::Boolean.boolean,
-        sundaySchoolStudent: Faker::Boolean.boolean,
-        developingActivityInTheChurch: Faker::Boolean.boolean,
-        canSwim: Faker::Boolean.boolean,
+        grade: "#{rand(1..9)}º ano",
+        schooling: "#{rand(1..2)}º grau",
+        blood_type: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].sample,
+        baptized_in_water: Faker::Boolean.boolean,
+        baptized_in_holy_spirit: Faker::Boolean.boolean,
+        sunday_school_student: Faker::Boolean.boolean,
+        developing_activity_in_the_church: Faker::Boolean.boolean,
+        can_swim: Faker::Boolean.boolean,
         comments: Faker::Lorem.sentence,
         classroom: Classroom.all.sample,
-        address: Address.all.sample,
-        documents: Document.all.sample(rand(1..2))
+        address: create_fake_address,
+        documents: create_fake_documents
       )
     end
     puts 'Students successfully registered'
@@ -135,13 +97,109 @@ namespace :dev do
 
     #######################
 
-    puts 'Registering associate...'
+    puts 'Registering relationship...'
     300.times do |_i|
-      Associate.create!(
+      Relationship.create!(
         student: Student.all.sample,
         responsible: Responsible.all.sample
       )
     end
-    puts 'Associate successfully registered'
+    puts 'Relationship successfully registered'
+
+    #######################
+
+    puts 'Registering congregational history...'
+    200.times do |_i|
+      CongregationalHistory.create!(
+        church: create_fake_church,
+        entry: Faker::Date.between(
+          from: 8.years.ago,
+          to: 4.years.ago
+),
+        exit: Faker::Date.between(
+          from: 3.years.ago,
+          to: Date.today
+),
+        student: Student.all.sample
+                            )
+    end
+    puts 'Congregational history successfully registered'
+
+    #######################
+
+    puts 'Registering medical record...'
+    200.times do |_i|
+      MedicalRecord.create!(
+        question: Faker::TvShows::HowIMetYourMother.quote,
+        owns: Faker::Boolean.boolean,
+        answer: Faker::TvShows::HowIMetYourMother.quote,
+        problem: Faker::TvShows::HowIMetYourMother.catch_phrase,
+        medicine: Faker::TvShows::HowIMetYourMother.high_five,
+        featured: Faker::Boolean.boolean,
+        student: Student.all.sample
+          )
+    end
+    puts 'Medical record successfully registered'
+
+    #######################
+
+    puts 'Registering grades...'
+    300.times do |_i|
+      Grade.create!(
+        note: rand(1.0..10.0).round(2),
+        discipline: create_fake_discipline,
+        student: Student.all.sample
+          )
+    end
+    puts 'Grades successfully registered'
+  end
+
+  private
+
+  def create_fake_address
+    Address.create(
+      street: Faker::Address.street_name,
+      number: Faker::Address.building_number,
+      zip: Faker::Address.zip,
+      neighborhood: Faker::Address.community,
+      city: Faker::Address.city,
+      federatedUnit: Faker::Address.state_abbr,
+      complement: Faker::Address.secondary_address
+        )
+  end
+
+  def create_fake_birth
+    Birth.create(
+      date: Faker::Date.between(from: 65.years.ago, to: 8.years.ago),
+      certificate: Faker::DrivingLicence.northern_irish_driving_licence,
+      address: create_fake_address
+        )
+  end
+
+  def create_fake_documents
+    documents = []
+    rand(1..2).times do |_i|
+      documents.push(Document.create!(
+                       description: %w[RG CPF].sample,
+                       registration: Faker::DrivingLicence.northern_irish_driving_licence
+          ))
+    end
+    documents
+  end
+
+  def create_fake_church
+    Church.create(
+      denomination: Faker::Movies::LordOfTheRings.location,
+      congregation: Faker::Movies::LordOfTheRings.character,
+      address: create_fake_address
+        )
+  end
+
+  def create_fake_discipline
+    Discipline.create(
+      description: Faker::Book.title,
+      start: Faker::Date.between(from: 8.years.ago, to: Date.today),
+      end: Faker::Date.forward,
+        )
   end
 end
