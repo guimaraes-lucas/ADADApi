@@ -4,8 +4,15 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 
-require 'coveralls'
-Coveralls.wear!
+if ENV['TRAVIS']
+  # When running in Travis, report coverage stats to Coveralls.
+  require 'coveralls'
+  Coveralls.wear!
+else
+  # Otherwise render coverage information in coverage/index.html and display
+  # coverage percentage in the console.
+  require 'simplecov'
+end
 
 # class for add helper methods to be used by all tests
 class ActiveSupport::TestCase
