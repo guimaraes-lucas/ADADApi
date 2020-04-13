@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :wallet_teachers
   resources :attendance_diaries
   resources :lessons
-  resources :associates
+  resources :relationships
   resources :students
   resources :documents
   resources :births
