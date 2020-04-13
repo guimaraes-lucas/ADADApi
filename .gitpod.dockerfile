@@ -1,4 +1,4 @@
-FROM gitpod/workspace-postgres
+FROM marcopeg/gitpod-workspace-postgres:2.5.0
 
 # Install Ruby
 ENV RUBY_VERSION=2.6.5
