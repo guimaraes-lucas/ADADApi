@@ -5,11 +5,16 @@ rvm:
 
 cache: bundler
 
+services:
+  - postgresql
+
 install: bundler install
 
 before_script:
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
 
 before_install:
   - gem update --system

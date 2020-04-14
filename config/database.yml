@@ -6,6 +6,7 @@ default: &default
 development:
   <<: *default
   database: my_database_development
+
 test:
   <<: *default
   database: my_database_test
