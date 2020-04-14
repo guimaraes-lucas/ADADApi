@@ -13,6 +13,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20_200_412_175_900) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension 'plpgsql'
+
   create_table 'addresses', force: :cascade do |t|
     t.string 'street'
     t.string 'number'
@@ -26,8 +29,8 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   end
 
   create_table 'attendance_diaries', force: :cascade do |t|
-    t.integer 'student_id', null: false
-    t.integer 'lesson_id', null: false
+    t.bigint 'student_id', null: false
+    t.bigint 'lesson_id', null: false
     t.boolean 'present'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
@@ -38,7 +41,7 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   create_table 'births', force: :cascade do |t|
     t.date 'date'
     t.string 'certificate'
-    t.integer 'address_id', null: false
+    t.bigint 'address_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['address_id'], name: 'index_births_on_address_id'
@@ -47,7 +50,7 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   create_table 'churches', force: :cascade do |t|
     t.string 'denomination'
     t.string 'congregation'
-    t.integer 'address_id', null: false
+    t.bigint 'address_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['address_id'], name: 'index_churches_on_address_id'
@@ -55,17 +58,17 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
 
   create_table 'classrooms', force: :cascade do |t|
     t.string 'description'
-    t.integer 'teacher_id', null: false
+    t.bigint 'teacher_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['teacher_id'], name: 'index_classrooms_on_teacher_id'
   end
 
   create_table 'congregational_histories', force: :cascade do |t|
-    t.integer 'church_id', null: false
+    t.bigint 'church_id', null: false
     t.date 'entry'
     t.date 'exit'
-    t.integer 'student_id', null: false
+    t.bigint 'student_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['church_id'], name: 'index_congregational_histories_on_church_id'
@@ -96,8 +99,8 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
 
   create_table 'grades', force: :cascade do |t|
     t.float 'note'
-    t.integer 'discipline_id', null: false
-    t.integer 'student_id', null: false
+    t.bigint 'discipline_id', null: false
+    t.bigint 'student_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['discipline_id'], name: 'index_grades_on_discipline_id'
@@ -107,8 +110,8 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   create_table 'lessons', force: :cascade do |t|
     t.string 'description'
     t.date 'date'
-    t.integer 'classroom_id', null: false
-    t.integer 'discipline_id', null: false
+    t.bigint 'classroom_id', null: false
+    t.bigint 'discipline_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['classroom_id'], name: 'index_lessons_on_classroom_id'
@@ -122,15 +125,15 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
     t.string 'problem'
     t.string 'medicine'
     t.boolean 'featured'
-    t.integer 'student_id', null: false
+    t.bigint 'student_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['student_id'], name: 'index_medical_records_on_student_id'
   end
 
   create_table 'relationships', force: :cascade do |t|
-    t.integer 'student_id', null: false
-    t.integer 'responsible_id', null: false
+    t.bigint 'student_id', null: false
+    t.bigint 'responsible_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['responsible_id'], name: 'index_relationships_on_responsible_id'
@@ -148,7 +151,7 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
 
   create_table 'students', force: :cascade do |t|
     t.string 'name'
-    t.integer 'birth_id', null: false
+    t.bigint 'birth_id', null: false
     t.boolean 'studying'
     t.string 'grade'
     t.string 'schooling'
@@ -159,8 +162,8 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
     t.boolean 'developing_activity_in_the_church'
     t.boolean 'can_swim'
     t.text 'comments'
-    t.integer 'classroom_id', null: false
-    t.integer 'address_id', null: false
+    t.bigint 'classroom_id', null: false
+    t.bigint 'address_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['address_id'], name: 'index_students_on_address_id'
@@ -170,8 +173,8 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
 
   create_table 'teachers', force: :cascade do |t|
     t.string 'name'
-    t.integer 'birth_id', null: false
-    t.integer 'address_id', null: false
+    t.bigint 'birth_id', null: false
+    t.bigint 'address_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['address_id'], name: 'index_teachers_on_address_id'
@@ -179,8 +182,8 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   end
 
   create_table 'wallet_students', force: :cascade do |t|
-    t.integer 'document_id', null: false
-    t.integer 'student_id', null: false
+    t.bigint 'document_id', null: false
+    t.bigint 'student_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['document_id'], name: 'index_wallet_students_on_document_id'
@@ -188,8 +191,8 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   end
 
   create_table 'wallet_teachers', force: :cascade do |t|
-    t.integer 'document_id', null: false
-    t.integer 'teacher_id', null: false
+    t.bigint 'document_id', null: false
+    t.bigint 'teacher_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['document_id'], name: 'index_wallet_teachers_on_document_id'

@@ -14,7 +14,7 @@ tasks:
       gem install bundler -v '1.17.3' &&
       bundle install --without production &&
       overcommit --install &&
-      rails db:migrate dev:setup
+      rails db:drop db:create db:migrate dev:setup
     command: >
       rails s
 vscode:
