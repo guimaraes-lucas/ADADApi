@@ -35,11 +35,11 @@ install:
   - where gem
 
   # Install latest Bundler to work around version issues
-  - gem install bundler:'< 2' --force
+  - gem install bundler
   - where bundler
 
   # Install ruby dependencies
-  - bundle install --retry 3 --path vendor\bundle
+  - bundle install
 
 build: off
 
