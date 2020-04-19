@@ -9,8 +9,8 @@ ports:
     onOpen: ignore
 tasks:
   - init: >
-      rvm install 2.6.5 &&
-      rvm use 2.6.5 --default &&
+      rvm install 2.6.6 &&
+      rvm use 2.6.6 --default &&
       gem install bundler &&
       bundle install --without production &&
       overcommit --install &&
