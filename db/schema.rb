@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   create_table 'attendance_diaries', force: :cascade do |t|
     t.bigint 'student_id', null: false
     t.bigint 'lesson_id', null: false
-    t.boolean 'present'
+    t.boolean 'is_present'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['lesson_id'], name: 'index_attendance_diaries_on_lesson_id'
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
 
   create_table 'disciplines', force: :cascade do |t|
     t.string 'description'
-    t.date 'start'
+    t.date 'begin'
     t.date 'end'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
@@ -110,11 +110,9 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   create_table 'lessons', force: :cascade do |t|
     t.string 'description'
     t.date 'date'
-    t.bigint 'classroom_id', null: false
     t.bigint 'discipline_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index ['classroom_id'], name: 'index_lessons_on_classroom_id'
     t.index ['discipline_id'], name: 'index_lessons_on_discipline_id'
   end
 
@@ -208,7 +206,6 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   add_foreign_key 'congregational_histories', 'students'
   add_foreign_key 'grades', 'disciplines'
   add_foreign_key 'grades', 'students'
-  add_foreign_key 'lessons', 'classrooms'
   add_foreign_key 'lessons', 'disciplines'
   add_foreign_key 'medical_records', 'students'
   add_foreign_key 'relationships', 'responsibles'

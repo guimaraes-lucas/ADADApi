@@ -8,7 +8,13 @@ class AttendanceDiariesController < ApplicationController
   def index
     @attendance_diaries = AttendanceDiary.all
 
-    render json: @attendance_diaries
+    render json: @attendance_diaries, include: [{ student: { only: :name } },
+                                                { lesson: { only: [:description, :date] } },
+                                                { discipline: { only: [:description,
+                                                                       :begin,
+                                                                       :end] } },
+                                                { classroom: { only: :description } },
+                                                { teacher: { only: :name } }]
   end
 
   # GET /attendance_diaries/1
@@ -50,6 +56,6 @@ class AttendanceDiariesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def attendance_diary_params
-    params.require(:attendance_diary).permit(:student_id, :lesson_id, :present)
+    params.require(:attendance_diary).permit(:student_id, :lesson_id, :is_present)
   end
 end

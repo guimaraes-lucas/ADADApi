@@ -1,21 +1,11 @@
 # frozen_string_literal: true
 
 namespace :dev do
-  if Rails.env.development? || Rails.env.test?
-    require 'rubocop/rake_task'
-
-    desc 'Run RuboCop on the lib directory'
-    RuboCop::RakeTask.new(:rubocop) do |task|
-      task.patterns = ['lib/**/*.rb']
-      # only show the files with failures
-      task.formatters = ['files']
-      # don't abort rake on failure
-      task.fail_on_error = false
-    end
-  end
-
   desc 'Setting up the development environment'
   task setup: :environment do
+    puts 'Reseting the database...'
+    `rails db:drop db:create db:migrate`
+
     puts 'Registering events...'
     20.times do |_i|
       Event.create!(
@@ -31,7 +21,7 @@ namespace :dev do
     10.times do |_i|
       Teacher.create!(
         name: Faker::Superhero.name,
-        birth: create_fake_birth,
+        birth: create_fake_older_birth,
         address: create_fake_address,
         documents: create_fake_documents
       )
@@ -51,22 +41,11 @@ namespace :dev do
 
     #######################
 
-    puts 'Registering classrooms...'
-    7.times do |_i|
-      Classroom.create!(
-        description: Faker::TvShows::Friends.location,
-        teacher: Teacher.all.sample
-      )
-    end
-    puts 'Classrooms successfully registered'
-
-    #######################
-
     puts 'Registering students...'
     200.times do |_i|
       Student.create!(
         name: Faker::Movies::StarWars.character,
-        birth: create_fake_birth,
+        birth: create_fake_underage_birth,
         studying: Faker::Boolean.boolean,
         grade: "#{rand(1..9)}º year",
         schooling: "#{rand(1..2)}º grade",
@@ -154,6 +133,23 @@ namespace :dev do
           )
     end
     puts 'Grades successfully registered'
+
+    #######################
+
+    puts 'Registering lessons...'
+    Discipline.all.each do |discipline|
+      rand(9..12).times do |_i|
+        Lesson.create!(
+          discipline: discipline,
+          date: Faker::Date.between(
+            from: discipline.begin,
+            to: discipline.end
+),
+          description: Faker::Book.title
+          )
+      end
+    end
+    puts 'Lessons successfully registered'
   end
 
   private
@@ -170,9 +166,17 @@ namespace :dev do
         )
   end
 
-  def create_fake_birth
+  def create_fake_underage_birth
     Birth.create(
-      date: Faker::Date.between(from: 65.years.ago, to: 8.years.ago),
+      date: Faker::Date.birthday(min_age: 8, max_age: 17),
+      certificate: Faker::DrivingLicence.northern_irish_driving_licence,
+      address: create_fake_address
+        )
+  end
+
+  def create_fake_older_birth
+    Birth.create(
+      date: Faker::Date.birthday(min_age: 18, max_age: 65),
       certificate: Faker::DrivingLicence.northern_irish_driving_licence,
       address: create_fake_address
         )
@@ -200,7 +204,7 @@ namespace :dev do
   def create_fake_discipline
     Discipline.create(
       description: Faker::Book.title,
-      start: Faker::Date.between(from: 8.years.ago, to: Date.today),
+      begin: Faker::Date.between(from: 8.years.ago, to: Date.today),
       end: Faker::Date.forward,
         )
   end

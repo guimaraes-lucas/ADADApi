@@ -5,7 +5,7 @@ class CreateDisciplines < ActiveRecord::Migration[6.0]
   def change
     create_table :disciplines do |t|
       t.string :description
-      t.date :start
+      t.date :begin
       t.date :end
 
       t.timestamps

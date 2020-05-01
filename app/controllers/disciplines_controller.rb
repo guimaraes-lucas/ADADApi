@@ -50,6 +50,6 @@ class DisciplinesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def discipline_params
-    params.require(:discipline).permit(:description, :start, :end)
+    params.require(:discipline).permit(:description, :begin, :end)
   end
 end

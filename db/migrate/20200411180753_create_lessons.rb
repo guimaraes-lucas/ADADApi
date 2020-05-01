@@ -6,7 +6,6 @@ class CreateLessons < ActiveRecord::Migration[6.0]
     create_table :lessons do |t|
       t.string :description
       t.date :date
-      t.references :classroom, null: false, foreign_key: true
       t.references :discipline, null: false, foreign_key: true
 
       t.timestamps
