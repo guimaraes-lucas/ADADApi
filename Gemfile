@@ -28,7 +28,12 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+# New Relic RPM Ruby Agent
 gem 'newrelic_rpm'
+
+# Repository for collecting Locale data for Ruby on Rails I18n as well as other interesting,
+# Rails related I18n stuff
+gem 'rails-i18n', '~> 6.0.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
