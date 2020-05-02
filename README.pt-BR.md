@@ -6,20 +6,20 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/b04689da43995f4db68d/maintainability)](https://codeclimate.com/github/guimaraes-lucas/adad-api/maintainability)
 [![Inline docs](http://inch-ci.org/github/guimaraes-lucas/adad-api.svg?branch=master)](http://inch-ci.org/github/guimaraes-lucas/adad-api)
 
-## What is this project?
+## O que é esse projeto?
 
-A class, event and finance management API made with [Rails](https://rubyonrails.org).
-It aims to centralize information related to the sector, such as: schedule, finances (on-call hours, current balance, reports of entries and exits), secretariat (registration of students and parents, attendance diary, notes).
+Uma api de gestão de aulas, eventos e finanças feita com [Rails](https://rubyonrails.org).
+Ela tem o propósito de centralizar informações relacionadas ao setor, como: agenda, finanças(agendas de plantão, saldo atual, relatórios de entradas e saídas), secretária (Cadastro de alunos e pais, diário de frequência, notas).
 
-Read this in other languages: [Português do Brasil (pt-BR)](README.pt-BR.md).
+Read this in other languages: [English](README.md).
 
-## Extra features using Gitpod
+## Recursos extras usados no Gitpod
 
-- [Postgres workspace with integrated database manager](https://github.com/marcopeg/docker-images/tree/master/gitpod-workspace-postgres)
+- [Área de trabalho postgres com gerenciador de banco de dados integrado](https://github.com/marcopeg/docker-images/tree/master/gitpod-workspace-postgres)
 
 ## Endpoints
 
-| Helper                  | HTTP Verb | Path                              | Controller#Action          |
+| Helper                  | HTTP Verb | Recursos                          | Controller#Action          |
 | ----------------------- | --------- | --------------------------------- | -------------------------- |
 | attendance_diaries_path | GET       | /attendance_diaries(.:format)     | attendance_diaries#index   |
 |                         | POST      | /attendance_diaries(.:format)     | attendance_diaries#create  |
