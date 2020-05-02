@@ -22,7 +22,6 @@ install:
 
   # Add postgres executable to PATH
   - set PATH=C:\Program Files\PostgreSQL\10.1\bin\;%PATH%
-  - psql --version
 
   # Create database of test
   - createdb my_database_test
