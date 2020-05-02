@@ -1,6 +1,5 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/guimaraes-lucas/adad-api)
 [![Build Status](https://travis-ci.com/guimaraes-lucas/adad-api.svg?branch=master)](https://travis-ci.com/guimaraes-lucas/adad-api)
-[![Build status](https://ci.appveyor.com/api/projects/status/c44vgthqrfpubs6o?svg=true)](https://ci.appveyor.com/project/guimaraes-lucas/adad-api)
 [![Coverage Status](https://coveralls.io/repos/github/guimaraes-lucas/adad-api/badge.svg?branch=master)](https://coveralls.io/github/guimaraes-lucas/adad-api?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b04689da43995f4db68d/maintainability)](https://codeclimate.com/github/guimaraes-lucas/adad-api/maintainability)
 [![Inline docs](http://inch-ci.org/github/guimaraes-lucas/adad-api.svg?branch=master)](http://inch-ci.org/github/guimaraes-lucas/adad-api)
