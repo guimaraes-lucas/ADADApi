@@ -49,6 +49,8 @@ install:
   # Install ruby dependencies
   - bundle install
 
+  - rails db:drop db:create db:migrate RAILS_ENV=test
+
 build: off
 
 before_test:
