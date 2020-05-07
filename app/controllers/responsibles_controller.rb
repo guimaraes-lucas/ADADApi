@@ -13,7 +13,7 @@ class ResponsiblesController < ApplicationController
 
   # GET /responsibles/1
   def show
-    render json: @responsible
+    render json: @responsible, include: :students
   end
 
   # POST /responsibles

@@ -13,7 +13,7 @@ class DisciplinesController < ApplicationController
 
   # GET /disciplines/1
   def show
-    render json: @discipline
+    render json: @discipline, include: :lessons
   end
 
   # POST /disciplines

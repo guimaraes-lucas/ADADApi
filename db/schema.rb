@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_412_175_900) do
+ActiveRecord::Schema.define(version: 20_200_502_193_448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -56,12 +56,41 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
     t.index ['address_id'], name: 'index_churches_on_address_id'
   end
 
-  create_table 'classrooms', force: :cascade do |t|
+  create_table 'class_deployments', force: :cascade do |t|
     t.string 'description'
-    t.bigint 'teacher_id', null: false
+    t.integer 'sequence'
+    t.bigint 'class_plan_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index ['teacher_id'], name: 'index_classrooms_on_teacher_id'
+    t.index ['class_plan_id'], name: 'index_class_deployments_on_class_plan_id'
+  end
+
+  create_table 'class_plans', force: :cascade do |t|
+    t.string 'title'
+    t.date 'date'
+    t.string 'theme'
+    t.text 'versicle'
+    t.text 'objective'
+    t.text 'content'
+    t.text 'activity'
+    t.text 'challenge'
+    t.text 'appraisal'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'class_resources', force: :cascade do |t|
+    t.string 'description'
+    t.bigint 'class_plan_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['class_plan_id'], name: 'index_class_resources_on_class_plan_id'
+  end
+
+  create_table 'classrooms', force: :cascade do |t|
+    t.string 'description'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   create_table 'congregational_histories', force: :cascade do |t|
@@ -169,6 +198,24 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
     t.index ['classroom_id'], name: 'index_students_on_classroom_id'
   end
 
+  create_table 'teacher_class_plans', force: :cascade do |t|
+    t.bigint 'teacher_id', null: false
+    t.bigint 'class_plan_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['class_plan_id'], name: 'index_teacher_class_plans_on_class_plan_id'
+    t.index ['teacher_id'], name: 'index_teacher_class_plans_on_teacher_id'
+  end
+
+  create_table 'teacher_classrooms', force: :cascade do |t|
+    t.bigint 'teacher_id', null: false
+    t.bigint 'classroom_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['classroom_id'], name: 'index_teacher_classrooms_on_classroom_id'
+    t.index ['teacher_id'], name: 'index_teacher_classrooms_on_teacher_id'
+  end
+
   create_table 'teachers', force: :cascade do |t|
     t.string 'name'
     t.bigint 'birth_id', null: false
@@ -201,7 +248,8 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   add_foreign_key 'attendance_diaries', 'students'
   add_foreign_key 'births', 'addresses'
   add_foreign_key 'churches', 'addresses'
-  add_foreign_key 'classrooms', 'teachers'
+  add_foreign_key 'class_deployments', 'class_plans'
+  add_foreign_key 'class_resources', 'class_plans'
   add_foreign_key 'congregational_histories', 'churches'
   add_foreign_key 'congregational_histories', 'students'
   add_foreign_key 'grades', 'disciplines'
@@ -213,6 +261,10 @@ ActiveRecord::Schema.define(version: 20_200_412_175_900) do
   add_foreign_key 'students', 'addresses'
   add_foreign_key 'students', 'births'
   add_foreign_key 'students', 'classrooms'
+  add_foreign_key 'teacher_class_plans', 'class_plans'
+  add_foreign_key 'teacher_class_plans', 'teachers'
+  add_foreign_key 'teacher_classrooms', 'classrooms'
+  add_foreign_key 'teacher_classrooms', 'teachers'
   add_foreign_key 'teachers', 'addresses'
   add_foreign_key 'teachers', 'births'
   add_foreign_key 'wallet_students', 'documents'

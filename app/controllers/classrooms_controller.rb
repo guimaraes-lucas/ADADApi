@@ -13,7 +13,7 @@ class ClassroomsController < ApplicationController
 
   # GET /classrooms/1
   def show
-    render json: @classroom
+    render json: @classroom, include: :teachers
   end
 
   # POST /classrooms
@@ -50,6 +50,6 @@ class ClassroomsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def classroom_params
-    params.require(:classroom).permit(:description, :teacher_id)
+    params.require(:classroom).permit(:description, :teachers)
   end
 end

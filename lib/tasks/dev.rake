@@ -34,7 +34,7 @@ namespace :dev do
     7.times do |_i|
       Classroom.create!(
         description: Faker::TvShows::Friends.location,
-        teacher: Teacher.all.sample
+        teachers: Teacher.all.sample(rand(1..2))
       )
     end
     puts 'Classrooms successfully registered'
@@ -79,11 +79,13 @@ namespace :dev do
     #######################
 
     puts 'Registering relationship...'
-    300.times do |_i|
-      Relationship.create!(
-        student: Student.all.sample,
-        responsible: Responsible.all.sample
-      )
+    Responsible.all.each do |responsible|
+      rand(1..5).times do |_i|
+        Relationship.create!(
+          student: Student.all.sample,
+          responsible: responsible
+        )
+      end
     end
     puts 'Relationship successfully registered'
 
