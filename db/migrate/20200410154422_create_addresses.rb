@@ -6,10 +6,11 @@ class CreateAddresses < ActiveRecord::Migration[6.0]
     create_table :addresses do |t|
       t.string :street
       t.string :number
-      t.string :zip
       t.string :neighborhood
       t.string :city
-      t.string :federatedUnit
+      t.string :state
+      t.string :country
+      t.string :postcode
       t.text :complement
 
       t.timestamps

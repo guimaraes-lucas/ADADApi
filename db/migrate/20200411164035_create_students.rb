@@ -4,8 +4,7 @@
 class CreateStudents < ActiveRecord::Migration[6.0]
   def change
     create_table :students do |t|
-      t.string :name
-      t.references :birth, null: false, foreign_key: true
+      t.references :person, null: false, foreign_key: true
       t.boolean :studying
       t.string :grade
       t.string :schooling
@@ -17,7 +16,6 @@ class CreateStudents < ActiveRecord::Migration[6.0]
       t.boolean :can_swim
       t.text :comments
       t.references :classroom, null: false, foreign_key: true
-      t.references :address, null: false, foreign_key: true
 
       t.timestamps
     end

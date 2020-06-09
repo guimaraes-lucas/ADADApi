@@ -19,10 +19,11 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
   create_table 'addresses', force: :cascade do |t|
     t.string 'street'
     t.string 'number'
-    t.string 'zip'
     t.string 'neighborhood'
     t.string 'city'
-    t.string 'federatedUnit'
+    t.string 'state'
+    t.string 'country'
+    t.string 'postcode'
     t.text 'complement'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
@@ -97,11 +98,11 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
     t.bigint 'church_id', null: false
     t.date 'entry'
     t.date 'exit'
-    t.bigint 'student_id', null: false
+    t.bigint 'person_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['church_id'], name: 'index_congregational_histories_on_church_id'
-    t.index ['student_id'], name: 'index_congregational_histories_on_student_id'
+    t.index ['person_id'], name: 'index_congregational_histories_on_person_id'
   end
 
   create_table 'disciplines', force: :cascade do |t|
@@ -115,8 +116,10 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
   create_table 'documents', force: :cascade do |t|
     t.string 'description'
     t.string 'registration'
+    t.bigint 'person_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index ['person_id'], name: 'index_documents_on_person_id'
   end
 
   create_table 'events', force: :cascade do |t|
@@ -136,6 +139,15 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
     t.index ['student_id'], name: 'index_grades_on_student_id'
   end
 
+  create_table 'kinships', force: :cascade do |t|
+    t.bigint 'student_id', null: false
+    t.bigint 'responsible_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['responsible_id'], name: 'index_kinships_on_responsible_id'
+    t.index ['student_id'], name: 'index_kinships_on_student_id'
+  end
+
   create_table 'lessons', force: :cascade do |t|
     t.string 'description'
     t.date 'date'
@@ -152,33 +164,34 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
     t.string 'problem'
     t.string 'medicine'
     t.boolean 'featured'
-    t.bigint 'student_id', null: false
+    t.bigint 'person_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index ['student_id'], name: 'index_medical_records_on_student_id'
+    t.index ['person_id'], name: 'index_medical_records_on_person_id'
   end
 
-  create_table 'relationships', force: :cascade do |t|
-    t.bigint 'student_id', null: false
-    t.bigint 'responsible_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['responsible_id'], name: 'index_relationships_on_responsible_id'
-    t.index ['student_id'], name: 'index_relationships_on_student_id'
-  end
-
-  create_table 'responsibles', force: :cascade do |t|
-    t.string 'relationship'
+  create_table 'people', force: :cascade do |t|
     t.string 'name'
     t.string 'phone'
     t.string 'email'
+    t.bigint 'birth_id', null: false
+    t.bigint 'address_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.index ['address_id'], name: 'index_people_on_address_id'
+    t.index ['birth_id'], name: 'index_people_on_birth_id'
+  end
+
+  create_table 'responsibles', force: :cascade do |t|
+    t.string 'kinship'
+    t.bigint 'person_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['person_id'], name: 'index_responsibles_on_person_id'
   end
 
   create_table 'students', force: :cascade do |t|
-    t.string 'name'
-    t.bigint 'birth_id', null: false
+    t.bigint 'person_id', null: false
     t.boolean 'studying'
     t.string 'grade'
     t.string 'schooling'
@@ -190,12 +203,10 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
     t.boolean 'can_swim'
     t.text 'comments'
     t.bigint 'classroom_id', null: false
-    t.bigint 'address_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index ['address_id'], name: 'index_students_on_address_id'
-    t.index ['birth_id'], name: 'index_students_on_birth_id'
     t.index ['classroom_id'], name: 'index_students_on_classroom_id'
+    t.index ['person_id'], name: 'index_students_on_person_id'
   end
 
   create_table 'teacher_class_plans', force: :cascade do |t|
@@ -217,31 +228,10 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
   end
 
   create_table 'teachers', force: :cascade do |t|
-    t.string 'name'
-    t.bigint 'birth_id', null: false
-    t.bigint 'address_id', null: false
+    t.bigint 'person_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.index ['address_id'], name: 'index_teachers_on_address_id'
-    t.index ['birth_id'], name: 'index_teachers_on_birth_id'
-  end
-
-  create_table 'wallet_students', force: :cascade do |t|
-    t.bigint 'document_id', null: false
-    t.bigint 'student_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['document_id'], name: 'index_wallet_students_on_document_id'
-    t.index ['student_id'], name: 'index_wallet_students_on_student_id'
-  end
-
-  create_table 'wallet_teachers', force: :cascade do |t|
-    t.bigint 'document_id', null: false
-    t.bigint 'teacher_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['document_id'], name: 'index_wallet_teachers_on_document_id'
-    t.index ['teacher_id'], name: 'index_wallet_teachers_on_teacher_id'
+    t.index ['person_id'], name: 'index_teachers_on_person_id'
   end
 
   add_foreign_key 'attendance_diaries', 'lessons'
@@ -251,24 +241,22 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
   add_foreign_key 'class_deployments', 'class_plans'
   add_foreign_key 'class_resources', 'class_plans'
   add_foreign_key 'congregational_histories', 'churches'
-  add_foreign_key 'congregational_histories', 'students'
+  add_foreign_key 'congregational_histories', 'people'
+  add_foreign_key 'documents', 'people'
   add_foreign_key 'grades', 'disciplines'
   add_foreign_key 'grades', 'students'
+  add_foreign_key 'kinships', 'responsibles'
+  add_foreign_key 'kinships', 'students'
   add_foreign_key 'lessons', 'disciplines'
-  add_foreign_key 'medical_records', 'students'
-  add_foreign_key 'relationships', 'responsibles'
-  add_foreign_key 'relationships', 'students'
-  add_foreign_key 'students', 'addresses'
-  add_foreign_key 'students', 'births'
+  add_foreign_key 'medical_records', 'people'
+  add_foreign_key 'people', 'addresses'
+  add_foreign_key 'people', 'births'
+  add_foreign_key 'responsibles', 'people'
   add_foreign_key 'students', 'classrooms'
+  add_foreign_key 'students', 'people'
   add_foreign_key 'teacher_class_plans', 'class_plans'
   add_foreign_key 'teacher_class_plans', 'teachers'
   add_foreign_key 'teacher_classrooms', 'classrooms'
   add_foreign_key 'teacher_classrooms', 'teachers'
-  add_foreign_key 'teachers', 'addresses'
-  add_foreign_key 'teachers', 'births'
-  add_foreign_key 'wallet_students', 'documents'
-  add_foreign_key 'wallet_students', 'students'
-  add_foreign_key 'wallet_teachers', 'documents'
-  add_foreign_key 'wallet_teachers', 'teachers'
+  add_foreign_key 'teachers', 'people'
 end

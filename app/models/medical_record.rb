@@ -2,5 +2,5 @@
 
 # class with relationships of Medical
 class MedicalRecord < ApplicationRecord
-  belongs_to :student
+  belongs_to :person
 end

@@ -4,10 +4,8 @@
 class CreateResponsibles < ActiveRecord::Migration[6.0]
   def change
     create_table :responsibles do |t|
-      t.string :relationship
-      t.string :name
-      t.string :phone
-      t.string :email
+      t.string :kinship
+      t.references :person, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -14,13 +14,9 @@ class StudentsController < ApplicationController
   # GET /students/1
   def show
     render json: @student,
-           include: [:birth,
+           include: [:person,
                      :classroom,
-                     :address,
-                     :documents,
                      :responsibles,
-                     :congregational_histories,
-                     :medical_records,
                      :grades,
                      :teachers]
   end
@@ -57,12 +53,9 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
 
-  # Only allow a trusted parameter "white list" through.
-  # rubocop:disable Metrics/MethodLength
   def student_params
     params.require(:student).permit(
-      :name,
-      :birth_id,
+      :person_id,
       :documents,
       :studying,
       :grade,
@@ -75,7 +68,6 @@ class StudentsController < ApplicationController
       :can_swim,
       :comments,
       :classroom_id,
-      :address_id,
       :resposibles,
       :congregational_histories,
       :medical_records,
@@ -83,5 +75,4 @@ class StudentsController < ApplicationController
       :teachers
 )
   end
-  # rubocop:enable Metrics/MethodLength
 end

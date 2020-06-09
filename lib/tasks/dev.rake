@@ -20,10 +20,7 @@ namespace :dev do
     puts 'Registering teachers...'
     10.times do |_i|
       Teacher.create!(
-        name: Faker::Superhero.name,
-        birth: create_fake_older_birth,
-        address: create_fake_address,
-        documents: create_fake_documents
+        person: create_fake_person(is_minor: false)
       )
     end
     puts 'Teachers successfully registered'
@@ -44,8 +41,7 @@ namespace :dev do
     puts 'Registering students...'
     200.times do |_i|
       Student.create!(
-        name: Faker::Movies::StarWars.character,
-        birth: create_fake_underage_birth,
+        person: create_fake_person(is_minor: true),
         studying: Faker::Boolean.boolean,
         grade: "#{rand(1..9)}º year",
         schooling: "#{rand(1..2)}º grade",
@@ -56,9 +52,7 @@ namespace :dev do
         developing_activity_in_the_church: Faker::Boolean.boolean,
         can_swim: Faker::Boolean.boolean,
         comments: Faker::Lorem.sentence,
-        classroom: Classroom.all.sample,
-        address: create_fake_address,
-        documents: create_fake_documents
+        classroom: Classroom.all.sample
       )
     end
     puts 'Students successfully registered'
@@ -68,10 +62,8 @@ namespace :dev do
     puts 'Registering responsibles...'
     150.times do |_i|
       Responsible.create!(
-        relationship: Faker::Relationship.parent,
-        name: Faker::TvShows::Friends.character,
-        phone: Faker::PhoneNumber.cell_phone,
-        email: Faker::Internet.email
+        kinship: Faker::Relationship.parent,
+        person: create_fake_person(is_minor: false)
       )
     end
     puts 'Responsibles successfully registered'
@@ -81,13 +73,13 @@ namespace :dev do
     puts 'Registering relationship...'
     Responsible.all.each do |responsible|
       rand(1..5).times do |_i|
-        Relationship.create!(
+        Kinship.create!(
           student: Student.all.sample,
           responsible: responsible
         )
       end
     end
-    puts 'Relationship successfully registered'
+    puts 'Kinship successfully registered'
 
     #######################
 
@@ -103,7 +95,7 @@ namespace :dev do
           from: 3.years.ago,
           to: Date.today
 ),
-        student: Student.all.sample
+        person: Person.all.sample
                             )
     end
     puts 'Congregational history successfully registered'
@@ -119,7 +111,7 @@ namespace :dev do
         problem: Faker::TvShows::HowIMetYourMother.catch_phrase,
         medicine: Faker::TvShows::HowIMetYourMother.high_five,
         featured: Faker::Boolean.boolean,
-        student: Student.all.sample
+        person: Person.all.sample
           )
     end
     puts 'Medical record successfully registered'
@@ -152,6 +144,9 @@ namespace :dev do
       end
     end
     puts 'Lessons successfully registered'
+
+    puts 'Running Rubocop auto correct...'
+    `rails rubocop:auto_correct`
   end
 
   private
@@ -160,10 +155,11 @@ namespace :dev do
     Address.create(
       street: Faker::Address.street_name,
       number: Faker::Address.building_number,
-      zip: Faker::Address.zip,
       neighborhood: Faker::Address.community,
       city: Faker::Address.city,
-      federatedUnit: Faker::Address.state_abbr,
+      state: Faker::Address.state,
+      country: Faker::Address.country,
+      postcode: Faker::Address.postcode,
       complement: Faker::Address.secondary_address
         )
   end
@@ -187,7 +183,7 @@ namespace :dev do
   def create_fake_documents
     documents = []
     rand(1..2).times do |_i|
-      documents.push(Document.create!(
+      documents.push(Document.new(
                        description: %w[RG CPF].sample,
                        registration: Faker::DrivingLicence.northern_irish_driving_licence
           ))
@@ -209,5 +205,16 @@ namespace :dev do
       begin: Faker::Date.between(from: 8.years.ago, to: Date.today),
       end: Faker::Date.forward,
         )
+  end
+
+  def create_fake_person(is_minor)
+    Person.create!(
+      name: Faker::TvShows::Friends.character,
+      phone: Faker::PhoneNumber.cell_phone,
+      email: Faker::Internet.email,
+      birth: is_minor ? create_fake_underage_birth : create_fake_older_birth,
+      address: create_fake_address,
+      documents: create_fake_documents
+    )
   end
 end

@@ -13,7 +13,7 @@ class ResponsiblesController < ApplicationController
 
   # GET /responsibles/1
   def show
-    render json: @responsible, include: :students
+    render json: @responsible, include: [:person, :students]
   end
 
   # POST /responsibles
@@ -50,6 +50,6 @@ class ResponsiblesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def responsible_params
-    params.require(:responsible).permit(:relationship, :name, :phone, :email)
+    params.require(:responsible).permit(:kinship, :person_id)
   end
 end

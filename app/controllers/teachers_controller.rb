@@ -8,13 +8,12 @@ class TeachersController < ApplicationController
   def index
     @teachers = Teacher.all
 
-    render json: @teachers
+    render json: @teachers, include: :person
   end
 
   # GET /teachers/1
   def show
-    render json: @teacher,
-           include: [:birth, :address, :classrooms, :documents]
+    render json: @teacher, include: :person
   end
 
   # POST /teachers
@@ -51,6 +50,6 @@ class TeachersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def teacher_params
-    params.require(:teacher).permit(:name, :birth, :address)
+    params.require(:teacher).permit(:person_id)
   end
 end
