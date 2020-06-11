@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_502_193_448) do
+ActiveRecord::Schema.define(version: 20_200_611_024_531) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -37,6 +37,27 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['lesson_id'], name: 'index_attendance_diaries_on_lesson_id'
     t.index ['student_id'], name: 'index_attendance_diaries_on_student_id'
+  end
+
+  create_table 'bill_items', force: :cascade do |t|
+    t.integer 'installment_number'
+    t.decimal 'value'
+    t.date 'due_date'
+    t.boolean 'is_paid'
+    t.bigint 'bill_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['bill_id'], name: 'index_bill_items_on_bill_id'
+  end
+
+  create_table 'bills', force: :cascade do |t|
+    t.string 'description'
+    t.decimal 'total'
+    t.date 'release_date'
+    t.integer 'number_of_installments'
+    t.integer 'situation'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   create_table 'births', force: :cascade do |t|
@@ -170,6 +191,15 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
     t.index ['person_id'], name: 'index_medical_records_on_person_id'
   end
 
+  create_table 'payables', force: :cascade do |t|
+    t.bigint 'bill_id', null: false
+    t.bigint 'person_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['bill_id'], name: 'index_payables_on_bill_id'
+    t.index ['person_id'], name: 'index_payables_on_person_id'
+  end
+
   create_table 'people', force: :cascade do |t|
     t.string 'name'
     t.string 'phone'
@@ -180,6 +210,15 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['address_id'], name: 'index_people_on_address_id'
     t.index ['birth_id'], name: 'index_people_on_birth_id'
+  end
+
+  create_table 'receivables', force: :cascade do |t|
+    t.bigint 'bill_id', null: false
+    t.bigint 'person_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['bill_id'], name: 'index_receivables_on_bill_id'
+    t.index ['person_id'], name: 'index_receivables_on_person_id'
   end
 
   create_table 'responsibles', force: :cascade do |t|
@@ -236,6 +275,7 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
 
   add_foreign_key 'attendance_diaries', 'lessons'
   add_foreign_key 'attendance_diaries', 'students'
+  add_foreign_key 'bill_items', 'bills'
   add_foreign_key 'births', 'addresses'
   add_foreign_key 'churches', 'addresses'
   add_foreign_key 'class_deployments', 'class_plans'
@@ -249,8 +289,12 @@ ActiveRecord::Schema.define(version: 20_200_502_193_448) do
   add_foreign_key 'kinships', 'students'
   add_foreign_key 'lessons', 'disciplines'
   add_foreign_key 'medical_records', 'people'
+  add_foreign_key 'payables', 'bills'
+  add_foreign_key 'payables', 'people'
   add_foreign_key 'people', 'addresses'
   add_foreign_key 'people', 'births'
+  add_foreign_key 'receivables', 'bills'
+  add_foreign_key 'receivables', 'people'
   add_foreign_key 'responsibles', 'people'
   add_foreign_key 'students', 'classrooms'
   add_foreign_key 'students', 'people'
