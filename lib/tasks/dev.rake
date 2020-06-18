@@ -70,7 +70,7 @@ namespace :dev do
 
     #######################
 
-    puts 'Registering relationship...'
+    puts 'Registering kinships...'
     Responsible.all.each do |responsible|
       rand(1..5).times do |_i|
         Kinship.create!(
@@ -79,7 +79,7 @@ namespace :dev do
         )
       end
     end
-    puts 'Kinship successfully registered'
+    puts 'Kinships successfully registered'
 
     #######################
 
