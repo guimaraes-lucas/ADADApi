@@ -5,6 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/guimaraes-lucas/adad-api/badge.svg?branch=master)](https://coveralls.io/github/guimaraes-lucas/adad-api?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b04689da43995f4db68d/maintainability)](https://codeclimate.com/github/guimaraes-lucas/adad-api/maintainability)
 [![Inline docs](http://inch-ci.org/github/guimaraes-lucas/adad-api.svg?branch=master)](http://inch-ci.org/github/guimaraes-lucas/adad-api)
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=websocket-extensions&package-manager=bundler&previous-version=0.1.4&new-version=0.1.5)](https://help.github.com/articles/configuring-automated-security-fixes)
 
 ## What is this project?
 
