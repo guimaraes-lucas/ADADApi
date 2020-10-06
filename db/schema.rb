@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_611_024_531) do
+ActiveRecord::Schema.define(version: 20_201_006_194_554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -191,15 +191,6 @@ ActiveRecord::Schema.define(version: 20_200_611_024_531) do
     t.index ['person_id'], name: 'index_medical_records_on_person_id'
   end
 
-  create_table 'payables', force: :cascade do |t|
-    t.bigint 'bill_id', null: false
-    t.bigint 'person_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['bill_id'], name: 'index_payables_on_bill_id'
-    t.index ['person_id'], name: 'index_payables_on_person_id'
-  end
-
   create_table 'people', force: :cascade do |t|
     t.string 'name'
     t.string 'phone'
@@ -210,15 +201,6 @@ ActiveRecord::Schema.define(version: 20_200_611_024_531) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['address_id'], name: 'index_people_on_address_id'
     t.index ['birth_id'], name: 'index_people_on_birth_id'
-  end
-
-  create_table 'receivables', force: :cascade do |t|
-    t.bigint 'bill_id', null: false
-    t.bigint 'person_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['bill_id'], name: 'index_receivables_on_bill_id'
-    t.index ['person_id'], name: 'index_receivables_on_person_id'
   end
 
   create_table 'responsibles', force: :cascade do |t|
@@ -273,6 +255,16 @@ ActiveRecord::Schema.define(version: 20_200_611_024_531) do
     t.index ['person_id'], name: 'index_teachers_on_person_id'
   end
 
+  create_table 'transactions', force: :cascade do |t|
+    t.integer 'kind'
+    t.bigint 'bill_id', null: false
+    t.bigint 'person_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['bill_id'], name: 'index_transactions_on_bill_id'
+    t.index ['person_id'], name: 'index_transactions_on_person_id'
+  end
+
   add_foreign_key 'attendance_diaries', 'lessons'
   add_foreign_key 'attendance_diaries', 'students'
   add_foreign_key 'bill_items', 'bills'
@@ -289,12 +281,8 @@ ActiveRecord::Schema.define(version: 20_200_611_024_531) do
   add_foreign_key 'kinships', 'students'
   add_foreign_key 'lessons', 'disciplines'
   add_foreign_key 'medical_records', 'people'
-  add_foreign_key 'payables', 'bills'
-  add_foreign_key 'payables', 'people'
   add_foreign_key 'people', 'addresses'
   add_foreign_key 'people', 'births'
-  add_foreign_key 'receivables', 'bills'
-  add_foreign_key 'receivables', 'people'
   add_foreign_key 'responsibles', 'people'
   add_foreign_key 'students', 'classrooms'
   add_foreign_key 'students', 'people'
@@ -303,4 +291,6 @@ ActiveRecord::Schema.define(version: 20_200_611_024_531) do
   add_foreign_key 'teacher_classrooms', 'classrooms'
   add_foreign_key 'teacher_classrooms', 'teachers'
   add_foreign_key 'teachers', 'people'
+  add_foreign_key 'transactions', 'bills'
+  add_foreign_key 'transactions', 'people'
 end

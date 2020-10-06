@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :receivables
-  resources :payables
+  resources :transactions
   resources :people
   resources :class_plans
   resources :attendance_diaries
